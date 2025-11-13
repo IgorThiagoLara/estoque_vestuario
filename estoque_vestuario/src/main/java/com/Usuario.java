@@ -17,6 +17,8 @@ public class Usuario {
         this.tentativasFalhas = 0;
     }
 
+    // ======== Getters ========
+
     public String getNomeUsuario() {
         return nomeUsuario;
     }
@@ -37,13 +39,29 @@ public class Usuario {
         return bloqueado;
     }
 
+    public int getTentativasFalhas() {
+        return tentativasFalhas;
+    }
+
+    // ======== Setters ========
+
     public void setBloqueado(boolean bloqueado) {
         this.bloqueado = bloqueado;
     }
 
-    public int getTentativasFalhas() {
-        return tentativasFalhas;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
+
+    public void setNomeCompleto(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    // ======== Métodos de Controle de Tentativas ========
 
     public void incrementarTentativasFalhas() {
         tentativasFalhas++;
@@ -55,9 +73,5 @@ public class Usuario {
     public void resetarTentativas() {
         tentativasFalhas = 0;
         bloqueado = false;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
     }
 }

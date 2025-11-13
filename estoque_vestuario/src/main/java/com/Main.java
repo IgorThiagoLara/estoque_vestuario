@@ -58,7 +58,7 @@ public class Main {
 
             } else {
                 System.out.println("Usuário logado: " + sistema.getUsuarioLogado().getNomeCompleto());
-                System.out.println("\n--- MENU DE ROUPAS ---");
+                System.out.println("\n--- MENU PRINCIPAL ---");
                 System.out.println("1 - Cadastrar roupa");
                 System.out.println("2 - Listar todas as roupas");
                 System.out.println("3 - Buscar roupa por ID");
@@ -67,7 +67,9 @@ public class Main {
                 System.out.println("6 - Editar roupa");
                 System.out.println("7 - Remover roupa");
                 System.out.println("8 - Alterar senha");
-                System.out.println("9 - Logout");
+                System.out.println("9 - Editar meu perfil");
+                System.out.println("10 - Excluir minha conta");
+                System.out.println("11 - Logout");
                 System.out.println("0 - Sair do sistema");
                 System.out.print("Escolha: ");
                 String opcao = sc.nextLine();
@@ -167,6 +169,52 @@ public class Main {
                         break;
 
                     case "9":
+                        // Editar perfil do usuário logado
+                        System.out.println("\n--- EDITAR MEU PERFIL ---");
+                        System.out.println("Dados atuais:");
+                        System.out.println("Nome completo: " + sistema.getUsuarioLogado().getNomeCompleto());
+                        System.out.println("Cargo: " + sistema.getUsuarioLogado().getCargo());
+
+                        System.out.print("\nNovo nome completo: ");
+                        String novoNomeCompleto = sc.nextLine();
+                        System.out.print("Novo cargo: ");
+                        String novoCargo = sc.nextLine();
+
+                        String msgEdicao = sistema.editarPerfil(
+                                sistema.getUsuarioLogado().getNomeUsuario(),
+                                novoNomeCompleto,
+                                novoCargo,
+                                null  // Não permite alterar senha aqui
+                        );
+                        System.out.println(msgEdicao);
+                        break;
+
+                    case "10":
+                        // Excluir conta do usuário logado
+                        System.out.println("\n--- EXCLUIR MINHA CONTA ---");
+                        System.out.println("⚠️  ATENÇÃO: Esta ação é irreversível!");
+                        System.out.print("Digite sua senha para confirmar a exclusão: ");
+                        String senhaConfirmacao = sc.nextLine();
+
+                        System.out.print("Tem certeza que deseja excluir sua conta? (S/N): ");
+                        String confirmacao = sc.nextLine();
+
+                        if (confirmacao.equalsIgnoreCase("S")) {
+                            String msgExclusao = sistema.excluirUsuario(
+                                    sistema.getUsuarioLogado().getNomeUsuario(),
+                                    senhaConfirmacao
+                            );
+                            System.out.println(msgExclusao);
+
+                            if (msgExclusao.equals("Usuário excluído com sucesso!")) {
+                                System.out.println("Sua conta foi excluída. Até logo!");
+                            }
+                        } else {
+                            System.out.println("Exclusão cancelada.");
+                        }
+                        break;
+
+                    case "11":
                         System.out.println(sistema.logout());
                         break;
 

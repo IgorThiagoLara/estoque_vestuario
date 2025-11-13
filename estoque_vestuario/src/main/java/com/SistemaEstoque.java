@@ -112,6 +112,72 @@ public class SistemaEstoque {
         return "Senha alterada com sucesso!";
     }
 
+    // ======== Edição de Perfil de Usuário ========
+    public String editarPerfil(String nomeUsuario, String novoNomeCompleto, String novoCargo, String novaSenha) {
+        if (!isUsuarioLogado()) {
+            return "Nenhum usuário está logado!";
+        }
+
+        Usuario usuario = usuarios.get(nomeUsuario);
+        if (usuario == null) {
+            return "Usuário não encontrado!";
+        }
+
+        if (!usuario.getNomeUsuario().equals(usuarioLogado.getNomeUsuario())) {
+            return "Você não tem permissão para editar este perfil!";
+        }
+
+        if (novoNomeCompleto == null || novoNomeCompleto.trim().isEmpty()) {
+            return "Nome completo é obrigatório!";
+        }
+
+        if (novoCargo == null || novoCargo.trim().isEmpty()) {
+            return "Cargo é obrigatório!";
+        }
+
+        // Se uma nova senha foi fornecida, validar
+        if (novaSenha != null && !novaSenha.isEmpty()) {
+            if (!senhaForte(novaSenha)) {
+                return "Senha muito fraca! Use pelo menos 8 caracteres, com letras e números.";
+            }
+            usuario.setSenha(novaSenha);
+        }
+
+        usuario.setNomeCompleto(novoNomeCompleto);
+        usuario.setCargo(novoCargo);
+
+        return "Perfil atualizado com sucesso!";
+    }
+
+    // ======== Exclusão de Usuário ========
+    public String excluirUsuario(String nomeUsuario, String senhaConfirmacao) {
+        if (!isUsuarioLogado()) {
+            return "Nenhum usuário está logado!";
+        }
+
+        Usuario usuario = usuarios.get(nomeUsuario);
+        if (usuario == null) {
+            return "Usuário não encontrado!";
+        }
+
+        if (!usuario.getNomeUsuario().equals(usuarioLogado.getNomeUsuario())) {
+            return "Você não tem permissão para excluir este usuário!";
+        }
+
+        if (senhaConfirmacao == null || senhaConfirmacao.isEmpty()) {
+            return "Senha de confirmação é obrigatória!";
+        }
+
+        if (!usuario.getSenha().equals(senhaConfirmacao)) {
+            return "Senha incorreta!";
+        }
+
+        usuarios.remove(nomeUsuario);
+        usuarioLogado = null;
+
+        return "Usuário excluído com sucesso!";
+    }
+
     // ======== Gerenciamento de Roupas ========
 
     public String cadastrarRoupa(String nome, String cor, String tamanho, int quantidade) {
