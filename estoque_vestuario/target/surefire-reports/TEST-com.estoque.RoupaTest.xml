@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.estoque.SistemaEstoqueTest" time="0.061" tests="20" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.estoque.RoupaTest" time="0.129" tests="32" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -59,24 +59,36 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="testNaoCadastrarUsuarioDuplicado" classname="com.estoque.SistemaEstoqueTest" time="0.003"/>
-  <testcase name="testNaoAlterarSenhaComSenhasDiferentes" classname="com.estoque.SistemaEstoqueTest" time="0.002"/>
-  <testcase name="testNaoAlterarSenhaComSenhaAntigaIncorreta" classname="com.estoque.SistemaEstoqueTest" time="0.001"/>
-  <testcase name="testAlterarSenhaComSucesso" classname="com.estoque.SistemaEstoqueTest" time="0.002"/>
-  <testcase name="testNaoAlterarSenhaComNovaSenhaFraca" classname="com.estoque.SistemaEstoqueTest" time="0.002"/>
-  <testcase name="testLogoutAposLogin" classname="com.estoque.SistemaEstoqueTest" time="0.002"/>
-  <testcase name="testLoginResetaTentativasFalhas" classname="com.estoque.SistemaEstoqueTest" time="0.001"/>
-  <testcase name="testCadastrarUsuarioComSucesso" classname="com.estoque.SistemaEstoqueTest" time="0.001"/>
-  <testcase name="testNaoAlterarSenhaSemLogin" classname="com.estoque.SistemaEstoqueTest" time="0.002"/>
-  <testcase name="testLoginComUsuarioInexistente" classname="com.estoque.SistemaEstoqueTest" time="0.002"/>
-  <testcase name="testNaoCadastrarComNomeUsuarioVazio" classname="com.estoque.SistemaEstoqueTest" time="0.001"/>
-  <testcase name="testLogoutSemUsuarioLogado" classname="com.estoque.SistemaEstoqueTest" time="0.001"/>
-  <testcase name="testLoginComCredenciaisValidas" classname="com.estoque.SistemaEstoqueTest" time="0.002"/>
-  <testcase name="testNaoCadastrarComCargoVazio" classname="com.estoque.SistemaEstoqueTest" time="0.002"/>
-  <testcase name="testBloqueioApos3TentativasFalhas" classname="com.estoque.SistemaEstoqueTest" time="0.002"/>
-  <testcase name="testNaoCadastrarComSenhasDiferentes" classname="com.estoque.SistemaEstoqueTest" time="0.001"/>
-  <testcase name="testNaoCadastrarComSenhaFraca" classname="com.estoque.SistemaEstoqueTest" time="0.001"/>
-  <testcase name="testLoginComSenhaIncorreta" classname="com.estoque.SistemaEstoqueTest" time="0.001"/>
-  <testcase name="testNaoCadastrarComNomeCompletoVazio" classname="com.estoque.SistemaEstoqueTest" time="0.002"/>
-  <testcase name="testLoginComCamposVazios" classname="com.estoque.SistemaEstoqueTest" time="0.005"/>
+  <testcase name="testBuscarMultiplasRoupasDoMesmoTamanho" classname="com.estoque.RoupaTest" time="0.033"/>
+  <testcase name="testCadastrarRoupaComSucesso" classname="com.estoque.RoupaTest" time="0.001"/>
+  <testcase name="testListarRoupasSemCadastro" classname="com.estoque.RoupaTest" time="0.002"/>
+  <testcase name="testRemoverRoupaNaoAfetaOutras" classname="com.estoque.RoupaTest" time="0.002"/>
+  <testcase name="testNaoEditarRoupaComCorVazia" classname="com.estoque.RoupaTest" time="0.001"/>
+  <testcase name="testNaoEditarRoupaComDadosInvalidos" classname="com.estoque.RoupaTest" time="0.001"/>
+  <testcase name="testBuscaPorNomeCaseInsensitive" classname="com.estoque.RoupaTest" time="0.001"/>
+  <testcase name="testBuscarTamanhoSemRoupas" classname="com.estoque.RoupaTest" time="0.001"/>
+  <testcase name="testBuscarRoupasPorTamanhoInexistente" classname="com.estoque.RoupaTest" time="0.001"/>
+  <testcase name="testValidacaoComEspacosEmBranco" classname="com.estoque.RoupaTest" time="0.001"/>
+  <testcase name="testNaoCadastrarRoupaComTamanhoVazio" classname="com.estoque.RoupaTest" time="0.001"/>
+  <testcase name="testNaoEditarRoupaComTamanhoVazio" classname="com.estoque.RoupaTest" time="0.001"/>
+  <testcase name="testEditarRoupaComSucesso" classname="com.estoque.RoupaTest" time="0.0"/>
+  <testcase name="testNaoEditarRoupaInexistente" classname="com.estoque.RoupaTest" time="0.002"/>
+  <testcase name="testListarTodasRoupas" classname="com.estoque.RoupaTest" time="0.002"/>
+  <testcase name="testNaoCadastrarRoupaComNomeVazio" classname="com.estoque.RoupaTest" time="0.002"/>
+  <testcase name="testNaoCadastrarRoupaComQuantidadeNegativa" classname="com.estoque.RoupaTest" time="0.001"/>
+  <testcase name="testBuscarRoupaPorNomeSemResultados" classname="com.estoque.RoupaTest" time="0.001"/>
+  <testcase name="testBuscarRoupasPorTamanhoExistente" classname="com.estoque.RoupaTest" time="0.001"/>
+  <testcase name="testBuscarRoupaPorIdExistente" classname="com.estoque.RoupaTest" time="0.0"/>
+  <testcase name="testBuscaPorTamanhoCaseInsensitive" classname="com.estoque.RoupaTest" time="0.0"/>
+  <testcase name="testBuscarRoupasPorNome" classname="com.estoque.RoupaTest" time="0.001"/>
+  <testcase name="testFluxoCompletoCRUD" classname="com.estoque.RoupaTest" time="0.001"/>
+  <testcase name="testBuscarRoupaPorIdInexistente" classname="com.estoque.RoupaTest" time="0.001"/>
+  <testcase name="testListarRoupasRetornaCopia" classname="com.estoque.RoupaTest" time="0.002"/>
+  <testcase name="testNaoCadastrarRoupaComCorVazia" classname="com.estoque.RoupaTest" time="0.001"/>
+  <testcase name="testIdsSequenciais" classname="com.estoque.RoupaTest" time="0.001"/>
+  <testcase name="testBuscaPorNomeTermoParcial" classname="com.estoque.RoupaTest" time="0.001"/>
+  <testcase name="testCadastrarRoupaComQuantidadeZero" classname="com.estoque.RoupaTest" time="0.001"/>
+  <testcase name="testNaoEditarRoupaComQuantidadeNegativa" classname="com.estoque.RoupaTest" time="0.001"/>
+  <testcase name="testNaoRemoverRoupaInexistente" classname="com.estoque.RoupaTest" time="0.001"/>
+  <testcase name="testRemoverRoupaComSucesso" classname="com.estoque.RoupaTest" time="0.001"/>
 </testsuite>

@@ -63,9 +63,11 @@ public class Main {
                 System.out.println("2 - Listar todas as roupas");
                 System.out.println("3 - Buscar roupa por ID");
                 System.out.println("4 - Buscar roupas por nome");
-                System.out.println("5 - Editar roupa");
-                System.out.println("6 - Remover roupa");
-                System.out.println("7 - Logout");
+                System.out.println("5 - Buscar roupas por tamanho");
+                System.out.println("6 - Editar roupa");
+                System.out.println("7 - Remover roupa");
+                System.out.println("8 - Alterar senha");
+                System.out.println("9 - Logout");
                 System.out.println("0 - Sair do sistema");
                 System.out.print("Escolha: ");
                 String opcao = sc.nextLine();
@@ -121,6 +123,20 @@ public class Main {
                         break;
 
                     case "5":
+                        System.out.print("Tamanho para buscar: ");
+                        String tamanhoBusca = sc.nextLine();
+                        List<Roupa> resultadosTamanho = sistema.buscarRoupasPorTamanho(tamanhoBusca);
+                        if (resultadosTamanho.isEmpty()) {
+                            System.out.println("Nenhuma roupa encontrada com esse tamanho.");
+                        } else {
+                            System.out.println("\n--- RESULTADOS DA BUSCA ---");
+                            for (Roupa r : resultadosTamanho) {
+                                System.out.println(r);
+                            }
+                        }
+                        break;
+
+                    case "6":
                         System.out.print("ID da roupa a editar: ");
                         int idEditar = Integer.parseInt(sc.nextLine());
                         System.out.print("Novo nome: ");
@@ -134,13 +150,23 @@ public class Main {
                         System.out.println(sistema.editarRoupa(idEditar, novoNome, novaCor, novoTamanho, novaQuantidade));
                         break;
 
-                    case "6":
+                    case "7":
                         System.out.print("ID da roupa a remover: ");
                         int idRemover = Integer.parseInt(sc.nextLine());
                         System.out.println(sistema.removerRoupa(idRemover));
                         break;
 
-                    case "7":
+                    case "8":
+                        System.out.print("Senha antiga: ");
+                        String senhaAntiga = sc.nextLine();
+                        System.out.print("Nova senha: ");
+                        String novaSenha = sc.nextLine();
+                        System.out.print("Confirmar nova senha: ");
+                        String confirmaNovaSenha = sc.nextLine();
+                        System.out.println(sistema.alterarSenha(senhaAntiga, novaSenha, confirmaNovaSenha));
+                        break;
+
+                    case "9":
                         System.out.println(sistema.logout());
                         break;
 

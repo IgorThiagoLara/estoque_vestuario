@@ -287,4 +287,83 @@ public class SistemaEstoqueTest {
         String resultado = sistema.logout();
         assertEquals("Nenhum usuário está logado.", resultado);
     }
+
+    // ============= TESTES DE ALTERAR SENHA =============
+
+    @Test
+    @DisplayName("Cenário 1: Alterar senha com sucesso")
+    void testAlterarSenhaComSucesso() {
+        // Dado que estou logado
+        sistema.cadastrarUsuario("joao", "Senha@123", "Senha@123", "João", "Gerente");
+        sistema.login("joao", "Senha@123");
+
+        // Quando informo senha antiga correta e nova senha válida
+        String resultado = sistema.alterarSenha("Senha@123", "NovaSenha@456", "NovaSenha@456");
+
+        // Então devo ver mensagem de sucesso
+        assertEquals("Senha alterada com sucesso!", resultado);
+
+        // E a senha deve ser atualizada
+        sistema.logout();
+        String loginComNovaSenha = sistema.login("joao", "NovaSenha@456");
+        assertEquals("Login realizado com sucesso!", loginComNovaSenha);
+    }
+
+    @Test
+    @DisplayName("Cenário 2: Tentar alterar senha sem estar logado")
+    void testNaoAlterarSenhaSemLogin() {
+        // Dado que NÃO estou logado
+        // Quando tento alterar senha
+        String resultado = sistema.alterarSenha("Senha@123", "NovaSenha@456", "NovaSenha@456");
+
+        // Então devo ver mensagem de erro
+        assertEquals("Você precisa estar logado para alterar a senha!", resultado);
+    }
+
+    @Test
+    @DisplayName("Cenário 3: Tentar alterar senha com senha antiga incorreta")
+    void testNaoAlterarSenhaComSenhaAntigaIncorreta() {
+        // Dado que estou logado
+        sistema.cadastrarUsuario("maria", "Senha@123", "Senha@123", "Maria", "Vendedor");
+        sistema.login("maria", "Senha@123");
+
+        // Quando informo senha antiga ERRADA
+        String resultado = sistema.alterarSenha("SenhaErrada@999", "NovaSenha@456", "NovaSenha@456");
+
+        // Então devo ver mensagem de erro
+        assertEquals("Senha antiga incorreta!", resultado);
+
+        // E a senha NÃO deve ser alterada
+        sistema.logout();
+        String loginComSenhaAntiga = sistema.login("maria", "Senha@123");
+        assertEquals("Login realizado com sucesso!", loginComSenhaAntiga);
+    }
+
+    @Test
+    @DisplayName("Cenário 4: Tentar alterar senha com nova senha fraca")
+    void testNaoAlterarSenhaComNovaSenhaFraca() {
+        // Dado que estou logado
+        sistema.cadastrarUsuario("pedro", "Senha@123", "Senha@123", "Pedro", "Gerente");
+        sistema.login("pedro", "Senha@123");
+
+        // Quando informo nova senha FRACA (ex: "123")
+        String resultado = sistema.alterarSenha("Senha@123", "123", "123");
+
+        // Então devo ver mensagem de erro sobre senha fraca
+        assertEquals("Senha muito fraca! Use pelo menos 8 caracteres, com letras e números.", resultado);
+    }
+
+    @Test
+    @DisplayName("Cenário 5: Tentar alterar senha com senhas que não coincidem")
+    void testNaoAlterarSenhaComSenhasDiferentes() {
+        // Dado que estou logado
+        sistema.cadastrarUsuario("ana", "Senha@123", "Senha@123", "Ana", "Vendedor");
+        sistema.login("ana", "Senha@123");
+
+        // Quando nova senha e confirmação são DIFERENTES
+        String resultado = sistema.alterarSenha("Senha@123", "NovaSenha@456", "NovaSenha@789");
+
+        // Então devo ver mensagem de erro
+        assertEquals("As senhas não coincidem!", resultado);
+    }
 }

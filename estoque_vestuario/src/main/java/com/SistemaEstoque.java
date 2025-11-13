@@ -93,6 +93,25 @@ public class SistemaEstoque {
         return "Logout realizado com sucesso!";
     }
 
+    // ======== Alterar Senha ========
+    public String alterarSenha(String senhaAntiga, String novaSenha, String confirmaNovaSenha) {
+        if (usuarioLogado == null) {
+            return "Você precisa estar logado para alterar a senha!";
+        }
+        if (!usuarioLogado.getSenha().equals(senhaAntiga)) {
+            return "Senha antiga incorreta!";
+        }
+        if (!novaSenha.equals(confirmaNovaSenha)) {
+            return "As senhas não coincidem!";
+        }
+        if (!senhaForte(novaSenha)) {
+            return "Senha muito fraca! Use pelo menos 8 caracteres, com letras e números.";
+        }
+
+        usuarioLogado.setSenha(novaSenha);
+        return "Senha alterada com sucesso!";
+    }
+
     // ======== Gerenciamento de Roupas ========
 
     public String cadastrarRoupa(String nome, String cor, String tamanho, int quantidade) {
@@ -122,6 +141,16 @@ public class SistemaEstoque {
         List<Roupa> resultado = new ArrayList<>();
         for (Roupa roupa : roupas.values()) {
             if (roupa.getNome().toLowerCase().contains(nome.toLowerCase())) {
+                resultado.add(roupa);
+            }
+        }
+        return resultado;
+    }
+
+    public List<Roupa> buscarRoupasPorTamanho(String tamanho) {
+        List<Roupa> resultado = new ArrayList<>();
+        for (Roupa roupa : roupas.values()) {
+            if (roupa.getTamanho().equalsIgnoreCase(tamanho)) {
                 resultado.add(roupa);
             }
         }
