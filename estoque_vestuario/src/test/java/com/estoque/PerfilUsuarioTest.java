@@ -95,7 +95,7 @@ public class PerfilUsuarioTest {
 
 
     @Test
-    @DisplayName("Cenário : Validação com espaços em branco")
+    @DisplayName("Cenário 4: Validação com espaços em branco")
     void testValidacaoEspacosEmBrancoNoPerfil() {
         // Dado que estou logado
         sistema.cadastrarUsuario("teste_espacos", "Senha@123", "Senha@123",
