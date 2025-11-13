@@ -3,12 +3,16 @@ package com;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SistemaEstoque {
     private Map<String, Usuario> usuarios = new HashMap<>();
     private Usuario usuarioLogado;
+    private Map<Integer, Roupa> roupas = new HashMap<>();
+    private int proximoIdRoupa = 1;
 
-    // ======== Cadastro ========
+    // ======== Cadastro de Usuário ========
     public String cadastrarUsuario(String nomeUsuario, String senha, String confirmaSenha,
                                    String nomeCompleto, String cargo) {
 
@@ -89,13 +93,95 @@ public class SistemaEstoque {
         return "Logout realizado com sucesso!";
     }
 
+    // ======== Gerenciamento de Roupas ========
+
+    public String cadastrarRoupa(String nome, String cor, String tamanho, int quantidade) {
+        if (nome == null || nome.trim().isEmpty()) {
+            return "Nome da roupa é obrigatório!";
+        }
+        if (cor == null || cor.trim().isEmpty()) {
+            return "Cor é obrigatória!";
+        }
+        if (tamanho == null || tamanho.trim().isEmpty()) {
+            return "Tamanho é obrigatório!";
+        }
+        if (quantidade < 0) {
+            return "Quantidade não pode ser negativa!";
+        }
+
+        Roupa roupa = new Roupa(proximoIdRoupa++, nome, cor, tamanho, quantidade);
+        roupas.put(roupa.getId(), roupa);
+        return "Roupa cadastrada com sucesso!";
+    }
+
+    public Roupa buscarRoupaPorId(int id) {
+        return roupas.get(id);
+    }
+
+    public List<Roupa> buscarRoupasPorNome(String nome) {
+        List<Roupa> resultado = new ArrayList<>();
+        for (Roupa roupa : roupas.values()) {
+            if (roupa.getNome().toLowerCase().contains(nome.toLowerCase())) {
+                resultado.add(roupa);
+            }
+        }
+        return resultado;
+    }
+
+    public List<Roupa> listarTodasRoupas() {
+        return new ArrayList<>(roupas.values());
+    }
+
+    public String editarRoupa(int id, String nome, String cor, String tamanho, int quantidade) {
+        Roupa roupa = roupas.get(id);
+        if (roupa == null) {
+            return "Roupa não encontrada!";
+        }
+
+        if (nome == null || nome.trim().isEmpty()) {
+            return "Nome da roupa é obrigatório!";
+        }
+        if (cor == null || cor.trim().isEmpty()) {
+            return "Cor é obrigatória!";
+        }
+        if (tamanho == null || tamanho.trim().isEmpty()) {
+            return "Tamanho é obrigatório!";
+        }
+        if (quantidade < 0) {
+            return "Quantidade não pode ser negativa!";
+        }
+
+        roupa.setNome(nome);
+        roupa.setCor(cor);
+        roupa.setTamanho(tamanho);
+        roupa.setQuantidade(quantidade);
+        return "Roupa editada com sucesso!";
+    }
+
+    public String removerRoupa(int id) {
+        if (!roupas.containsKey(id)) {
+            return "Roupa não encontrada!";
+        }
+        roupas.remove(id);
+        return "Roupa removida com sucesso!";
+    }
+
     // ======== Suporte a testes ========
     public void limparUsuarios() {
         usuarios.clear();
         usuarioLogado = null;
     }
 
+    public void limparRoupas() {
+        roupas.clear();
+        proximoIdRoupa = 1;
+    }
+
     public Map<String, Usuario> getUsuarios() {
         return usuarios;
+    }
+
+    public Map<Integer, Roupa> getRoupas() {
+        return roupas;
     }
 }
